@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+		<div class="row">
+			<div class="col-md-12">
+				<h1>{{ page_title }}</h1>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="btn-toolbar" role="toolbar">
+					<div class="btn-group">
+						<button class="btn btn-default" id="btn-refresh" name="btn-refresh" type="submit" data-toggle="tooltip" title="Refresh" data-placement="bottom" onclick="location.reload(true)"><i class="fa fa-refresh fa-fw"></i></button>
+					</div>
+					<div class="btn-group pull-right">
+						<button class="btn open" disabled="disabled">Open</button>
+						<button class="btn closed" disabled="disabled">Closed</button>
+						<button class="btn waiting" disabled="disabled">Waiting</button>
+					</div>
+				</div>
+				<hr>
+				<div class="table-responsive">
+					<table id="tbl-tickets" class="table table-hover">
+						<thead>
+							<tr>
+								<th>Ticket ID</th>
+								{% if request.path == '/all_tickets' %}
+								<th>Ticket Category</th>
+								{% endif %}
+								<th>Ticket Summary</th>
+								<th>Student Name</th>
+								<th>Date Created</th>
+								<th><!-- View info link --></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for ticket in tickets %}
+							{% if ticket.status == 'open' %}
+							<tr class="open">
+							{% elif ticket.status == 'closed' %}
+							<tr class="closed">
+							{% elif ticket.status == 'waiting' %}
+							<tr class="waiting">
+							{% endif %}
+								<td>{{ ticket.id }}</td>
+								{% if request.path == '/all_tickets' %}
+								<td>{{ ticket.category }}</td>
+								{% endif %}
+								<td>{{ ticket.summary }}</td>
+								<td>{{ ticket.first_name }} {{ ticket.last_name }}</td>
+								<td>{{ ticket.date}}</td>
+								<td><a href="/ticket/{{ ticket.id }}"><i class="fa fa-search"></i></a></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					{{ pagination.links }}
+					{{ pagination.info }}
+				</div>
+			</div>
+		</div>
+{% endblock %}

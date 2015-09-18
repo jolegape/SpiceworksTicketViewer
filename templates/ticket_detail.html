@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+	{% block content %}
+		<div class="row">
+			<div class="col-md-12">
+				<h2>
+					<strong>{{ ticket.summary }} ({{ ticket.id }}) - ({{ ticket.c_vendor_case_number|default('', true) }})</strong>
+					<div class="btn-group pull-right">
+						<a href="http://spiceworks.stmonicas.qld.edu.au/tickets/list/single_ticket/{{ ticket.id }}" target="_blank" class="btn btn-default hidden-print"><i class="fa fa-link"> Goto Spiceworks</i></a>
+						<button class="btn btn-default hidden-print" onclick="window.print()"><i class="fa fa-print"> Print</i></button>
+					</div>
+				</h2>
+				<hr>
+
+				<table class="table ticket-detail">
+					<tr>
+						<td class="first"><strong>Creation Date</strong></td>
+						<td>{{ ticket.date }}</td>
+					</tr>
+					<tr>
+						<td class="first"><strong>Owner</strong></td>
+						<td>{{ ticket.first_name }} {{ ticket.last_name }}</td>
+					</tr>
+					<tr>
+						<td class="first"><strong>Computer / Device</strong></td>
+						<td>
+						{% if ticket.manufacturer == "Hewlett-Packard" %}
+						HP
+						{% else %}
+						{{ ticket.manufacturer|default('', true) }}
+						{% endif %}
+						{{ ticket.model|default('', true) }} ({{ ticket.name|default('', true) }}) ({{ ticket.serial_number }})</td>
+					</tr>
+					<tr>
+						<td class="first"><strong>Replacement Computer</strong></td>
+						<td>{{ ticket.c_replacement_device|default('', true) }}</td>
+					</tr>
+					<tr>
+						<td class="first"><strong>Notes</strong></td>
+					</tr>
+					<tr>
+						<td colspan="2">{{ ticket.description }}</td>
+					</tr>
+				</table>
+				<h2 class="ticket-footer visible-print-block pull-right">
+					<strong>{{ ticket.summary }} ({{ ticket.id }}) - {{ ticket.first_name }} {{ ticket.last_name }}</strong>
+					<hr>
+				</h2>
+			</div>
+		</div>
+	{% endblock %}

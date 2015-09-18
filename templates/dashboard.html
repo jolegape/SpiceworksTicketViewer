@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Dashboard</h1>
+				<hr>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12 col-md-6">
+				<h3>Repairs</h3>
+				<hr>
+				<table class="table table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>Ticket ID</th>
+							<th>Ticket Summary</th>
+							<th>Student Name</th>
+							<th>Date Created</th>
+							<th><!-- View Info Link --></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for repair in repairs %}
+						<tr>
+							<td>{{ repair.id }}</td>
+							<td>{{ repair.summary }}</td>
+							<td>{{ repair.first_name }} {{ repair.last_name }}</td>
+							<td>{{ repair.date }}</td>
+							<td><a href="/ticket/{{ repair.id }}"><i class="fa fa-search"></i></a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-sm-12 col-md-6">
+				<h3>Loans</h3>
+				<hr>
+				<table class="table table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>Ticket ID</th>
+							<th>Device Loaned</th>
+							<th>Student Name</th>
+							<th>Date Created</th>
+							<th><!-- View Info Link --></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for loan in loans %}
+						<tr>
+							<td>{{ loan.id }}</td>
+							<td>{{ loan.summary }}</td>
+							<td>{{ loan.first_name }} {{ loan.last_name }}</td>
+							<td>{{ loan.date }}</td>
+							<td><a href="/ticket/{{ loan.id }}"><i class="fa fa-search"></i></a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<h3>Misc Tickets</h3>
+				<hr>
+				<table class="table table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>Ticket ID</th>
+							<th>Ticket Summary</th>
+							<th>Date Created</th>
+							<th><!-- View info link --></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for misc_ticket in misc_tickets %}
+						<tr>
+							<td>{{ misc_ticket.id }}</td>
+							<td>{{ misc_ticket.summary }}</td>
+							<td>{{ misc_ticket.first_name }} {{ misc_ticket.last_name }}</td>
+							<td>{{ misc_ticket.date }}</td>
+							<td><a href="/ticket/{{ misc_ticket.id }}"><i class="fa fa-search"></i></a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+{% endblock %}
