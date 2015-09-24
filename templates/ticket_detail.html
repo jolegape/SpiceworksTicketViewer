@@ -40,6 +40,19 @@
 					<tr>
 						<td colspan="2">{{ ticket.description }}</td>
 					</tr>
+					{% if ticket_comments %}
+					<tr>
+						<td colspan="2"><strong>Updates</strong></td>
+					</tr>
+					{% for comment in ticket_comments %}
+					<tr>
+						<td colspan="2">
+							<strong>{{ comment.date }} - </strong>
+							{{ comment.body }}
+						</td>
+					</tr>
+					{% endfor %}
+					{% endif %}
 				</table>
 				<h2 class="ticket-footer visible-print-block pull-right">
 					<strong>{{ ticket.summary }} ({{ ticket.id }}) - {{ ticket.first_name }} {{ ticket.last_name }}</strong>

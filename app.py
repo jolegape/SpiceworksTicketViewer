@@ -147,11 +147,15 @@ def misc():
 @app.route('/ticket/<int:ticket_id>')
 def show_ticket(ticket_id):
 
-	sql = sql_queries.get_ticket.format(ticket_id)
-	g.cur.execute(sql)
-
+	ticket_sql = g.cur.execute(sql_queries.get_ticket.format(ticket_id))
 	ticket = g.cur.fetchone()
-	return render_template('ticket_detail.html', ticket=ticket)
+
+	ticket_comments_sql = g.cur.execute(sql_queries.get_ticket_comments.format(ticket_id))
+	ticket_comments = g.cur.fetchall()
+
+	return render_template('ticket_detail.html', ticket=ticket,
+							ticket_comments=ticket_comments,
+							)
 
 if __name__ == '__main__':
 	app.run()
